@@ -13,7 +13,7 @@ Write system call
 3. Edit `Makefile` under kernel source code
 4. look for line `core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ ` edit to `core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ hello/`
 5. Go to `arch/x86/entry/syscalls` directory
-6. Edit system call table depend on your system architecture `32 / 64`
+6. Edit system call table depending on your system architecture `32 / 64`
 		System call table looks looks like follow :
 
 		
