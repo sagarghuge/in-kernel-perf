@@ -16,10 +16,10 @@ Write system call
 6. Edit system call table depend on your system architecture `32 / 64`
 		System call table looks looks like follow :
 
-		``
+		
 		<System_Call_Number>  <Architecture(i386/x86_64)>   <name>  <Entry_point>   <Compact_Entry_point>
 		19  i386  hello     sys_hello
-		```
+		
 register EAX gets loaded with System_Call_Number, parameter which are passed to method gets loaded in registers EBX, ECX, EDX etc.
 
 7. Add User defined system call in system call header file.
