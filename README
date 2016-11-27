@@ -1,0 +1,53 @@
+Subject : System call Info
+
+Steps to add system call in Linux kernel and build kernel 
+
+Under your source directory create User_system_call_directory
+
+Create source code for your system call
+
+-> Edit Main Linux_Src/Makefile
+
+check for line --> "core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ ”
+
+Edit to -- > "core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ userDefinedSystemCall/”
+
+Goto - > arch/x86/entry/syscalls
+
+--> Edit system call table depend on your system architecture 32/64
+
+System call table looks looks like follow :
+
+<System_Call_Number> 	<Architecture(i386/x86_64)>		<name>  <Entry_point> 	<Compact_Entry_point> 
+
+Eg : 19  i386  lseek     sys_lseek     compat_sys_lseek
+
+register EAX gets loaded with System_Call_Number, parameter which are passed to method gets loaded in registers EBX, ECX, EDX etc. 
+
+Add User defined system call in system call header file. 
+
+Goto --> linux_Src/include/linux
+
+Edit --> syscalls.h
+
+At the end of file add your system call definition
+
+==> You can configure your kernel 
+
+==> make
+
+Install kernel using => sudo make modules_install install
+
+
+In order to run system call in kernel space - > 
+
+1. You need to save fs (additional segment register) named FS by calling get_fs() 
+2. we need to call set_fs(KERNEL_DS);
+2. we can call any system call like sys_XYZ function()
+3. reset the saved fs by set_fs()
+
+It's not good practice to invoke system call in kernel space as if user program forget to reset back virtual address limit by set_fs()
+then user defined program can use exiting kernel space virtual address space for execution. 
+
+
+
